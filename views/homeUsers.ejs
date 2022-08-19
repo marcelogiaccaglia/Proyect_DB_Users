@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <header>
+      <h1>Lista de Usuarios actuales</h1>
+    </header>
+    <main>
+      <section>
+        <article>
+          <form action="/users/search" method="get">
+            <input
+              type="text"
+              name="searchs"
+              placeholder="A que usuario buscas?"
+            />
+            <button type="submit">Buscar</button>
+          </form>
+        </article>
+        <article>
+          <h2>Lista de Usuarios</h2>
+          <ul>
+            <% for(let i = 0; i < usersBD.length; i++){ %>
+            <li>
+              <a href="/users/detalle/<%= usersBD[i].id %> ">
+                <%= usersBD[i].nombre %>
+              </a>
+            </li>
+            <% } %>
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

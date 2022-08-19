@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <header>
+      <h1>Pagina de Registracion</h1>
+    </header>
+    <main>
+      <section>
+        <form action="/users/register" method="post">
+          <h2>Estos datos necesitamos de vos</h2>
+          <input type="number" name="id" id="" placeholder="ID" hidden />
+          <br />
+          <input type="text" name="nombre" id="" placeholder="Tu Nombre" />
+          <br />
+          <input type="text" name="apellido" id="" placeholder="Tu Apellido" />
+          <br />
+          <input type="number" name="edad" id="" placeholder="Tu Edad" />
+          <br />
+          <input
+            type="text"
+            name="profesion"
+            id=""
+            placeholder="Tu Profesion"
+          />
+          <br />
+          <label for="birth">Fecha de Nacimiento</label>
+          <br />
+          <input type="date" name="birth" id="birth" />
+          <br />
+          <input type="radio" name="tipo" id="vendedor" value="vendedor" />
+          <p>Vendedor</p>
+          <input type="radio" name="tipo" id="comprador" value="comprador" />
+          <p>Comprador</p>
+          <input type="email" name="email" id="" placeholder="Tu Email" />
+          <br />
+          <input
+            type="password"
+            name="password"
+            id=""
+            placeholder="Contraseña"
+          />
+          <button type="submit">Registrarse</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

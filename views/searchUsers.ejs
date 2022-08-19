@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <header>
+      <h1>Usuarios Encontrados</h1>
+    </header>
+    <main>
+      <section>
+        <article>
+          <form action="/users/search" method="get">
+            <input
+              type="text"
+              name="searchs"
+              placeholder="A que usuario buscas?"
+            />
+            <button type="submit">Buscar</button>
+          </form>
+        </article>
+        <article>
+          <h2>Lista de Usuarios Encontrados</h2>
+          <ul>
+            <% for(let i = 0; i < busqueda2.length; i++){ %>
+            <li>
+              <a href="/users/detalle/<%= busqueda2[i].id %> ">
+                <%= busqueda2[i].nombre %>
+              </a>
+            </li>
+            <% } %>
+            <!-- Atajar el error ????? -->
+            <!-- <% for(let i = 0; i < busqueda2.length; i++){ if (busqueda2[i]) {%>
+            <li>
+              <a href="/users/detalle/<%= busqueda2[i].id %> ">
+                <%= busqueda2[i].nombre %>
+              </a>
+            </li>
+            <% } else { %> <%=error%> <%} } %> -->
+            <!-- Atajar el error ???? -->
+          </ul>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ("./partials/head.ejs") %>
+  <body>
+    <header>
+      <h1>Bienvenidos a la Base de Datos de Usuarios</h1>
+    </header>
+    <main>
+      <section>
+        <form action="/users/login" method="post">
+          <br />
+          <input type="email" name="email" placeholder="Email" />
+          <br />
+          <input type="password" name="password" placeholder="Contraseña" />
+          <br />
+          <button type="submit">Ingresar</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

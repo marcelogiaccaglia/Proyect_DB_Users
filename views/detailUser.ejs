@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <header>
+      <h1>Detalle de Usuario</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Esta es la infomacion de <%= userSelect.nombre %></h2>
+        <br />
+        <!-- <h3>Id: <%= userSelect.id %></h3> -->
+        <br />
+        <h3>Nombre: <%= userSelect.nombre %></h3>
+        <br />
+        <h3>Apellido: <%= userSelect.apellido %></h3>
+        <br />
+        <h3>Edad: <%= userSelect.edad %></h3>
+        <br />
+        <h3>Profesion: <%= userSelect.profesion %></h3>
+        <br />
+        <h3>Fecha de Nacimiento: <%= userSelect.nacimiento %></h3>
+        <br />
+        <h3>Email: <%= userSelect.email %></h3>
+        <br />
+        <form action="/users/edit/<%= userSelect.id %>" method="get">
+          <button type="submit">Editar</button>
+        </form>
+        <form
+          action="/users/delete/<%= userSelect.id %>?_method=DELETE"
+          method="post"
+        >
+          <button type="submit">Borrar</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+let usersBD = [
+  {
+    id: 1,
+    nombre: "Marcelo",
+    apellido: "Giaccaglia",
+    edad: 38,
+    profesion: "Programador Web",
+    email: "marcelogiaccaglia@gmail.com",
+    tipo: "vendedor",
+  },
+  {
+    id: 2,
+    nombre: "Soledad",
+    apellido: "Porras",
+    edad: 38,
+    profesion: "Profesora Ingles",
+    email: "porrassole@gmail.com",
+    tipo: "comprador",
+  },
+  {
+    id: 3,
+    nombre: "Daniel",
+    apellido: "Giaccaglia",
+    edad: 64,
+    profesion: "Analista de Sistemas",
+    email: "danielgiaccaglia@gmail.com",
+    tipo: "vendedor",
+  },
+  {
+    id: 4,
+    nombre: "Susana",
+    apellido: "Marchese",
+    edad: 61,
+    profesion: "Empresaria",
+    email: "susanamarchese@gmail.com",
+    tipo: "comprador",
+  },
+  {
+    id: 5,
+    nombre: "Cristian",
+    apellido: "Giaccaglia",
+    edad: 37,
+    profesion: "Empleado Judicial",
+    email: "cristiangiaccaglia@gmail.com",
+    tipo: "vendedor",
+  },
+  {
+    id: 6,
+    nombre: "Geovanna",
+    apellido: "Giaccaglia",
+    edad: 1,
+    profesion: "Futura Estrella",
+    email: "geovygiaccaglia@gmail.com",
+    tipo: "comprador",
+  },
+];
+
+module.exports = usersBD;

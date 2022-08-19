@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <header>
+      <h1>Pagina de Edicion del Usuario <%= userEdit.nombre %></h1>
+    </header>
+    <main>
+      <section>
+        <form action="/users/edit?_method=PUT" method="post">
+          <h2>Estos datos tenemos de vos</h2>
+          <input
+            type="text"
+            name="id"
+            id=""
+            placeholder="ID"
+            value="<%= userEdit.id  %> "
+            hidden
+          />
+          <br />
+          <input
+            type="text"
+            name="nombre"
+            id=""
+            placeholder="Tu Nombre"
+            value="<%= userEdit.nombre %> "
+          />
+          <br />
+          <input
+            type="text"
+            name="apellido"
+            id=""
+            placeholder="Tu Apellido"
+            value="<%= userEdit.apellido %> "
+          />
+          <br />
+          <input
+            type="text"
+            name="edad"
+            id=""
+            placeholder="Tu Edad"
+            value="<%= userEdit.edad %> "
+          />
+          <br />
+          <input
+            type="date"
+            name="birth"
+            id=""
+            value="<%= Number(userEdit.nacimiento) %> "
+          />
+          <br />
+          <input
+            type="text"
+            name="profesion"
+            id=""
+            placeholder="Tu Profesion"
+            value="<%= userEdit.profesion %> "
+          />
+          <br />
+          <input
+            type="email"
+            name="email"
+            id=""
+            placeholder="Tu Email"
+            value="<%= userEdit.email %> "
+          />
+          <br />
+          <input type="radio" name="tipo" id="vendedor" value="vendedor"
+          <%if(userEdit.tipo==="vendedor"){%>checked<%}%> />
+          <p>Vendedor</p>
+          <input type="radio" name="tipo" id="comprador" value="comprador"
+          <%if(userEdit.tipo==="comprador"){%>checked<%}%> />
+          <p>Comprador</p>
+          <button type="submit">Editar</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
