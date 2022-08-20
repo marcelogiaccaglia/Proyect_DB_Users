@@ -1,6 +1,7 @@
 /* Requiero Express */
 const EXPRESS = require("express");
 const METHODOVERRIDE = require("method-override");
+const BCRYPT = require("bcrypt");
 
 /* Requiero las rutas */
 const homeRoute = require("./routes/homeRoute");

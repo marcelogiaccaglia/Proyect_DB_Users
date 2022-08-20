@@ -7,9 +7,13 @@
     </header>
     <main>
       <section>
-        <form action="/users/register" method="post">
+        <form
+          action="/users/register"
+          method="post"
+          enctype="multipart/form-data"
+        >
           <h2>Estos datos necesitamos de vos</h2>
-          <input type="number" name="id" id="" placeholder="ID" hidden />
+          <input type="text" name="id" id="" placeholder="ID" hidden />
           <br />
           <input type="text" name="nombre" id="" placeholder="Tu Nombre" />
           <br />
@@ -27,6 +31,8 @@
           <label for="birth">Fecha de Nacimiento</label>
           <br />
           <input type="date" name="birth" id="birth" />
+          <br />
+          <input type="file" name="photo" id="" />
           <br />
           <input type="radio" name="tipo" id="vendedor" value="vendedor" />
           <p>Vendedor</p>

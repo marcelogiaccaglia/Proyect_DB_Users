@@ -7,7 +7,11 @@
     </header>
     <main>
       <section>
-        <form action="/users/edit?_method=PUT" method="post">
+        <form
+          action="/users/edit?_method=PUT"
+          method="post"
+          enctype="multipart/form-data"
+        >
           <h2>Estos datos tenemos de vos</h2>
           <input
             type="text"
@@ -43,13 +47,6 @@
           />
           <br />
           <input
-            type="date"
-            name="birth"
-            id=""
-            value="<%= Number(userEdit.nacimiento) %> "
-          />
-          <br />
-          <input
             type="text"
             name="profesion"
             id=""
@@ -57,12 +54,19 @@
             value="<%= userEdit.profesion %> "
           />
           <br />
+          <label for="birth">Fecha de Nacimiento</label>
           <input
-            type="email"
-            name="email"
+            type="date"
+            name="birth"
             id=""
-            placeholder="Tu Email"
-            value="<%= userEdit.email %> "
+            value="<%= Number(userEdit.nacimiento) %> "
+          />
+          <br />
+          <input
+            type="file"
+            name="photo"
+            id=""
+            value="<%= userEdit.foto  %> "
           />
           <br />
           <input type="radio" name="tipo" id="vendedor" value="vendedor"
@@ -71,6 +75,26 @@
           <input type="radio" name="tipo" id="comprador" value="comprador"
           <%if(userEdit.tipo==="comprador"){%>checked<%}%> />
           <p>Comprador</p>
+
+          <br />
+          <label for="">Email</label>
+          <input
+            type="email"
+            name="email"
+            id=""
+            placeholder="Tu Email"
+            value="<%= userEdit.email %> "
+          />
+          <br />
+          <label for="">Contraseña</label>
+          <input
+            type="password"
+            name="password"
+            id=""
+            placeholder="Contraseña"
+            value="<%= userEdit.contraseña %> "
+          />
+          <br />
           <button type="submit">Editar</button>
         </form>
       </section>

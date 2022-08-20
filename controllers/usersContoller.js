@@ -1,6 +1,7 @@
 /* Requiero el modulo de la base de datos de usuarios */
 const { json } = require("express");
 const fs = require("fs");
+const BCRYPT = require("bcrypt");
 const { default: swal } = require("sweetalert");
 const alert = require("sweetalert");
 
@@ -31,13 +32,17 @@ let usersController = {
     res.render("loginUser");
   },
   login: (req, res) => {
-    for (let i = 0; i <= usersBD.length; i++) {
-      if (req.body.email === usersBD[i].email) {
-        res.redirect("/users");
-      } else {
-        res.send("no existe el usuario");
+    /* Recorremos los usuarios existenetes */
+    for (let i = 0; i < usersBD.length; i++) {
+      /* Condicional si existe email y contraseña encriptada coincide */
+      if (
+        req.body.email === usersBD[i].email &&
+        BCRYPT.compareSync(req.body.password, usersBD[i].contraseña)
+      ) {
+        return res.redirect("/users");
       }
     }
+    res.send("no existe el usuario");
   },
   detail: (req, res) => {
     let userSelectNum = parseInt(req.params.idUser);
@@ -52,7 +57,7 @@ let usersController = {
   register: (req, res) => {
     res.render("registerUser");
   },
-  create: (req, res) => {
+  create: (req, res, next) => {
     let register = {
       id: null,
       nombre: req.body.nombre,
@@ -60,16 +65,21 @@ let usersController = {
       edad: parseInt(req.body.edad),
       profesion: req.body.profesion,
       nacimiento: req.body.birth,
+      foto: "userDefault.jpg",
       email: req.body.email,
       tipo: req.body.tipo,
+      contraseña: BCRYPT.hashSync(req.body.password, 10),
     };
 
     let newIdUser;
     for (let i = 0; i <= usersBD.length; i++) {
       newIdUser = i + 1;
     }
-
     register.id = newIdUser;
+
+    if (req.files.length) {
+      register.foto = req.files[0].filename;
+    }
 
     let newUser = [];
     let JsonBD = fs.readFileSync("data/usersJSON.json", { encoding: "utf-8" });
@@ -95,7 +105,7 @@ let usersController = {
     }
     res.render("editUser", { userEdit: userEdit });
   },
-  upload: (req, res) => {
+  upload: (req, res, next) => {
     let position;
     for (let i = 0; i < usersBD.length; i++) {
       if (parseInt(req.body.id) === usersBD[i].id) {
@@ -110,7 +120,15 @@ let usersController = {
       usersBD[position].nacimiento = req.body.birth;
       usersBD[position].email = req.body.email;
       usersBD[position].tipo = req.body.tipo;
+      usersBD[position].contraseña = BCRYPT.hashSync(req.body.password, 10);
     }
+
+    if (req.files.length) {
+      usersBD[position].foto = req.files[0].filename;
+    } else {
+      usersBD[position].foto = "userDefault.jpg";
+    }
+
     let editBDtoJSON = JSON.stringify(usersBD);
     fs.writeFileSync("data/usersJSON.json", editBDtoJSON);
 
