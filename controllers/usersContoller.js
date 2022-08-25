@@ -2,8 +2,9 @@
 const { json } = require("express");
 const fs = require("fs");
 const BCRYPT = require("bcrypt");
-const { default: swal } = require("sweetalert");
-const alert = require("sweetalert");
+const { check, validationResult, body } = require("express-validator");
+/* const { default: swal } = require("sweetalert");
+const alert = require("sweetalert"); */
 
 /* -------- Base de Datos ------- */
 /* Leemos y convertimos a objeto literal la base de datos JSON */
@@ -12,22 +13,6 @@ let usersBD = JSON.parse(
 );
 
 let usersController = {
-  home: (req, res) => {
-    res.render("homeUsers", { usersBD: usersBD });
-  },
-  search: (req, res) => {
-    let busqueda = req.query.searchs;
-    let busqueda2 = [];
-    /* let error; */
-    for (let i = 0; i < usersBD.length; i++) {
-      if (usersBD[i].nombre.includes(busqueda)) {
-        busqueda2.push(usersBD[i]);
-      } /* Como hacer para atajar el error ??? */ /* else {
-        error = "No existe usuario buscado";
-      } */
-    }
-    res.render("searchUsers", { busqueda2: busqueda2 } /* { error: error } */);
-  },
   access: (req, res) => {
     res.render("loginUser");
   },
@@ -39,25 +24,24 @@ let usersController = {
         req.body.email === usersBD[i].email &&
         BCRYPT.compareSync(req.body.password, usersBD[i].contraseña)
       ) {
-        return res.redirect("/users");
+        return res.render("indexPlatform");
       }
     }
-    res.send("no existe el usuario");
-  },
-  detail: (req, res) => {
-    let userSelectNum = parseInt(req.params.idUser);
-    let userSelect;
-    for (let i = 0; i < usersBD.length; i++) {
-      if (userSelectNum === usersBD[i].id) {
-        userSelect = usersBD[i];
-      }
-    }
-    res.render("detailUser", { userSelect: userSelect });
+    let msgError = "El email no esta registrado, por favor registrese!";
+    res.render("loginUser", { msgError: msgError });
   },
   register: (req, res) => {
     res.render("registerUser");
   },
   create: (req, res, next) => {
+    /* Validar si ya esta registrado el email */
+    for (let i = 0; i < usersBD.length; i++) {
+      if (req.body.email === usersBD[i].email) {
+        let msgErrorC = "El email ya esta en uso!";
+        return res.render("registerUser", { msgErrorC: msgErrorC });
+      }
+    }
+
     let register = {
       id: null,
       nombre: req.body.nombre,
@@ -67,7 +51,6 @@ let usersController = {
       nacimiento: req.body.birth,
       foto: "userDefault.jpg",
       email: req.body.email,
-      tipo: req.body.tipo,
       contraseña: BCRYPT.hashSync(req.body.password, 10),
     };
 
@@ -93,7 +76,33 @@ let usersController = {
     let newBDtoJson = JSON.stringify(newUser);
     fs.writeFileSync("data/usersJSON.json", newBDtoJson);
 
-    res.redirect("/users");
+    res.redirect("/users/login");
+  },
+  home: (req, res) => {
+    res.render("homeUsers", { usersBD: usersBD });
+  },
+  search: (req, res) => {
+    let busqueda = req.query.searchs;
+    let busqueda2 = [];
+    /* let error; */
+    for (let i = 0; i < usersBD.length; i++) {
+      if (usersBD[i].nombre.includes(busqueda)) {
+        busqueda2.push(usersBD[i]);
+      } /* Como hacer para atajar el error ??? */ /* else {
+          error = "No existe usuario buscado";
+        } */
+    }
+    res.render("searchUsers", { busqueda2: busqueda2 } /* { error: error } */);
+  },
+  detail: (req, res) => {
+    let userSelectNum = parseInt(req.params.idUser);
+    let userSelect;
+    for (let i = 0; i < usersBD.length; i++) {
+      if (userSelectNum === usersBD[i].id) {
+        userSelect = usersBD[i];
+      }
+    }
+    res.render("detailUser", { userSelect: userSelect });
   },
   edit: (req, res) => {
     let userEditNum = parseInt(req.params.idUser);
@@ -119,7 +128,6 @@ let usersController = {
       usersBD[position].profesion = req.body.profesion;
       usersBD[position].nacimiento = req.body.birth;
       usersBD[position].email = req.body.email;
-      usersBD[position].tipo = req.body.tipo;
       usersBD[position].contraseña = BCRYPT.hashSync(req.body.password, 10);
     }
 

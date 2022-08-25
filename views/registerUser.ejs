@@ -6,6 +6,9 @@
       <h1>Pagina de Registracion</h1>
     </header>
     <main>
+      <% if(typeof msgErrorC != "undefined"){ %>
+      <p class="errors"><%= msgErrorC %></p>
+      <% } %>
       <section>
         <form
           action="/users/register"
@@ -15,11 +18,24 @@
           <h2>Estos datos necesitamos de vos</h2>
           <input type="text" name="id" id="" placeholder="ID" hidden />
           <br />
+          <br />
           <input type="text" name="nombre" id="" placeholder="Tu Nombre" />
+          <% if(typeof errorNombre !="undefined") { %>
+          <p class="errors"><%= errorNombre %></p>
+          <% } %>
+          <br />
           <br />
           <input type="text" name="apellido" id="" placeholder="Tu Apellido" />
+          <% if(typeof errorApellido !="undefined") { %>
+          <p class="errors"><%= errorApellido %></p>
+          <% } %>
+          <br />
           <br />
           <input type="number" name="edad" id="" placeholder="Tu Edad" />
+          <% if(typeof errorEdad !="undefined") { %>
+          <p class="errors"><%= errorEdad %></p>
+          <% } %>
+          <br />
           <br />
           <input
             type="text"
@@ -27,18 +43,27 @@
             id=""
             placeholder="Tu Profesion"
           />
+          <% if(typeof errorProfesion !="undefined") { %>
+          <p class="errors"><%= errorProfesion %></p>
+          <% } %>
+          <br />
           <br />
           <label for="birth">Fecha de Nacimiento</label>
-          <br />
           <input type="date" name="birth" id="birth" />
+          <% if(typeof errorNacimiento !="undefined") { %>
+          <p class="errors"><%= errorNacimiento %></p>
+          <% } %>
           <br />
+          <br />
+          <label for="">Imagen de Usuario</label>
           <input type="file" name="photo" id="" />
           <br />
-          <input type="radio" name="tipo" id="vendedor" value="vendedor" />
-          <p>Vendedor</p>
-          <input type="radio" name="tipo" id="comprador" value="comprador" />
-          <p>Comprador</p>
+          <br />
           <input type="email" name="email" id="" placeholder="Tu Email" />
+          <% if(typeof errorEmail != "undefined") { %>
+          <p class="errors"><%= errorEmail %></p>
+          <% } %>
+          <br />
           <br />
           <input
             type="password"
@@ -46,6 +71,19 @@
             id=""
             placeholder="Contraseña"
           />
+          <% if(typeof errorContraseña != "undefined") { %>
+          <p class="errors"><%= errorContraseña %></p>
+          <% } %>
+          <br />
+          <br />
+          <input
+            type="password"
+            name="password2"
+            id=""
+            placeholder="Repetir Contraseña"
+          />
+          <br />
+          <br />
           <button type="submit">Registrarse</button>
         </form>
       </section>

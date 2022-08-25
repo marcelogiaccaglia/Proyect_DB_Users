@@ -1,6 +1,7 @@
 const EXPRESS = require("express");
 const MULTER = require("multer");
 const PATH = require("path");
+const { check, validationResult, body } = require("express-validator");
 
 /* Configuracion de Multer */
 const storage = MULTER.diskStorage({
@@ -20,16 +21,35 @@ const upload = MULTER({ storage: storage });
 /* Requerir Controller */
 const usersController = require("../controllers/usersContoller");
 
+/* Requerir Middleware */
+let authMiddleware = require("../middleware/authMiddleware");
+let validCreateMiddleware = require("../middleware/validCreateMiddleware");
+let validExpressMiddleware = require("../middleware/validExpressMiddleware");
+
 const Router = EXPRESS.Router();
 
 Router.get("/", usersController.home);
 Router.get("/search", usersController.search);
 
 Router.get("/login", usersController.access);
-Router.post("/login", usersController.login);
+Router.post(
+  "/login",
+  [
+    check("email").isEmail().withMessage("No es un email valido"),
+    check("password").isLength({ min: 8 }).withMessage("Minimo 8 caracteres"),
+  ],
+  authMiddleware,
+  usersController.login
+);
 
 Router.get("/register", usersController.register);
-Router.post("/register", upload.any(), usersController.create);
+Router.post(
+  "/register",
+  upload.any(),
+  validExpressMiddleware,
+  validCreateMiddleware,
+  usersController.create
+);
 
 Router.get("/detalle/:idUser", usersController.detail);
 

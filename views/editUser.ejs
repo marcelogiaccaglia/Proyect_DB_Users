@@ -68,13 +68,13 @@
             id=""
             value="<%= userEdit.foto  %> "
           />
-          <br />
+          <!-- <br />
           <input type="radio" name="tipo" id="vendedor" value="vendedor"
           <%if(userEdit.tipo==="vendedor"){%>checked<%}%> />
           <p>Vendedor</p>
           <input type="radio" name="tipo" id="comprador" value="comprador"
           <%if(userEdit.tipo==="comprador"){%>checked<%}%> />
-          <p>Comprador</p>
+          <p>Comprador</p> -->
 
           <br />
           <label for="">Email</label>
@@ -86,13 +86,23 @@
             value="<%= userEdit.email %> "
           />
           <br />
-          <label for="">Contraseña</label>
           <input
             type="password"
             name="password"
             id=""
-            placeholder="Contraseña"
-            value="<%= userEdit.contraseña %> "
+            placeholder="Contraseña Actual"
+          /><br />
+          <input
+            type="password"
+            name="password1"
+            id=""
+            placeholder="Contraseña Nueva"
+          /><br />
+          <input
+            type="password"
+            name="password2"
+            id=""
+            placeholder="Repita Contraseña Nueva"
           />
           <br />
           <button type="submit">Editar</button>

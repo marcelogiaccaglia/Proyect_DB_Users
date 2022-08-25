@@ -3,15 +3,30 @@
   <%- include ("./partials/head.ejs") %>
   <body>
     <header>
-      <h1>Bienvenidos a la Base de Datos de Usuarios</h1>
+      <h1>Ingresa con tus datos a la plataforma</h1>
     </header>
     <main>
+      <% if(typeof msgError != "undefined"){ %>
+      <p class="errors"><%= msgError %></p>
+      <% } %> <% if(typeof errors != "undefined") { %>
+      <ul>
+        <% for (let i = 0; i < errors.length; i++) { %>
+        <li class="errors"><%= errors[i].msg %></li>
+        <% } %>
+      </ul>
+      <% } %>
       <section>
         <form action="/users/login" method="post">
           <br />
-          <input type="email" name="email" placeholder="Email" />
+          <input type="text" name="email" placeholder="Email" />
+          <br />
           <br />
           <input type="password" name="password" placeholder="Contraseña" />
+          <br />
+          <br />
+          <input type="checkbox" name="recordame" id="recordame" />
+          <label for="recordame">Recordar mis datos</label>
+          <br />
           <br />
           <button type="submit">Ingresar</button>
         </form>

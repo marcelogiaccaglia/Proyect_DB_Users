@@ -2,3 +2,7 @@ body {
   background-color: aqua;
   font-family: "Roboto", sans-serif;
 }
+
+.errors {
+  color: red;
+}
